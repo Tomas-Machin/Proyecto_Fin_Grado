@@ -2,8 +2,8 @@ from game import PokerGame
 
 def solicitar_informacion_jugador():
     user_name = input("Introduce tu nombre: ")
-    num_players = int(input("Introduce el número de jugadores (6-10): "))
-    user_position = input("Introduce tu posición en la mesa (UTG, UTG + 1, UTG + 2, MP 1, MP 2, HJ, CO, BU, SB, BB): ")
+    num_players = int(input("Introduce el número de jugadores (2-6): "))
+    user_position = input("Introduce tu posición en la mesa (UTG, MP, HJ, CO, BU, SB, BB): ")
     # print(f"{user_name}, tu posicion es: {user_position} en una mesa de {num_players} jugadores.")
     return user_name, num_players, user_position
 
