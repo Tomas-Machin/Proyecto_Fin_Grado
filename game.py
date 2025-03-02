@@ -2,8 +2,6 @@ from deck import Deck
 from player import Player
 import json
 
-# POSICIONES_POKER = ["UTG", "MP", "HJ", "CO", "BU", "SB", "BB"]
-
 poker = {
     "POSICIONES_POKER": {
         "UTG": {},
@@ -16,11 +14,7 @@ poker = {
     }
 }
 
-#posiciones_poker_json = json.dumps(poker, indent=4)
-#print(posiciones_poker_json)
-
 POSICIONES_POKER = list(poker["POSICIONES_POKER"].keys())
-#print("Las posiciones de póker son:", POSICIONES_POKER)
 
 class PokerGame:
     def __init__(self, user_name, num_players, user_position):
@@ -38,10 +32,11 @@ class PokerGame:
             exit("Posición inválida.")
 
     def assign_info_into_positions(self):
-        if self.user_position in POSICIONES_POKER:
-            poker["POSICIONES_POKER"][self.user_position]["nombre"] = self.user_name.name
-        else:
-            exit("Posición inválida.")
+        for index, position in enumerate(POSICIONES_POKER):
+            if self.user_position == position:
+                poker["POSICIONES_POKER"][self.user_position]["nombre"] = self.user_name.name
+            else:
+                poker["POSICIONES_POKER"][position]["nombre"] = f"Rival {index + 1}"
 
     def start_game(self):
         self.deck.shuffle()
