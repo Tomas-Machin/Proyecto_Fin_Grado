@@ -4,7 +4,13 @@ def solicitar_informacion_jugador():
     user_name = input("Introduce tu nombre: ")
     num_players = int(input("Introduce el número de jugadores (2-6): "))
     user_position = input("Introduce tu posición en la mesa (UTG, MP, HJ, CO, BU, SB, BB): ")
-    # print(f"{user_name}, tu posicion es: {user_position} en una mesa de {num_players} jugadores.")
+    #blinds = input("Introduce las ciegas de la mesa: ")
+    #user_hand = input("Introduce tu mano con el formato {[número][palo] [número][palo]} siendo los palos H, S, C, D (Hearts, Spades, Cloves, Diamonds): ")
+    players_pockets = []
+    """for i in range(0, num_players):
+        print(i)
+        money = input("Introduce el dinero del jugador en la posicion: ")"""
+
     return user_name, num_players, user_position
 
 if __name__ == "__main__":
