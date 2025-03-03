@@ -1,3 +1,4 @@
+import player
 from deck import Deck
 from player import Player
 from table import Table
@@ -19,7 +20,7 @@ class PokerGame:
     def assign_info_into_positions(self):
         for position in self.table.positions:
             if self.user_position == position:
-                self.table.poker["POSICIONES_POKER"][self.user_position]["nombre"] = self.user_name.name
+                self.table.poker["Positions"][self.user_position]["name"] = self.user_name.name
 
     def start_game(self):
         self.deck.shuffle()
@@ -27,16 +28,15 @@ class PokerGame:
         # self.play_rounds()
 
     def deal_initial_cards(self):
-        for player in [self.user_name] + self.rivals:
-            player.hand = [self.deck.draw_card() for _ in range(2)]
-            print(player.hand)
+        for position in self.table.positions:
+            self.table.poker["Positions"][position]["hand"] = [self.deck.draw_card() for _ in range(2)]
 
     def game_information(self):
         print("\nCartas del jugador usuario:")
         print(f"{self.user_name.name}: {self.user_name.hand}")
 
-        print("\nPosiciones y fichas de los jugadores:")
-        print(self.table.get_poker_info())
+        print("\nPosiciones y ciegas de los jugadores:")
+        print(self.table.get_table_info())
 
     """def play_rounds(self):
         # Aquí irán las rondas de apuestas y lógica adicional
