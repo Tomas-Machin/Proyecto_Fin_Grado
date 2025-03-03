@@ -30,9 +30,9 @@ class PokerGame:
 
     def deal_initial_cards(self):
         for position in self.table.positions:
-            #if self.user_position == position:
-            #    self.table.poker["Positions"][self.user_position]["hand"] = self.user_hand
-            #else:
+            if self.user_position == position:
+                self.table.poker["Positions"][self.user_position]["hand"] = self.user_hand
+            else:
                 self.table.poker["Positions"][position]["hand"] = [self.deck.draw_card() for _ in range(2)]
 
     def game_information(self):
