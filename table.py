@@ -1,16 +1,17 @@
 import json
 
 class Table:
-    def __init__(self, num_players):
-        self.num_players = num_players
-        self.positions = self.assign_positions()
+    def __init__(self, num_players, blinds):
+        self.positions = self.assign_positions(num_players)
         self.poker = {
-            "POSICIONES_POKER": {
-                position: {"nombre": "Rival"} for position in self.positions
+            "Blinds": blinds,
+            "Players": num_players,
+            "Positions": {
+                position: {"name": "Rival"} for position in self.positions
             }
         }
 
-    def assign_positions(self):
+    def assign_positions(self, num_players):
         position_options = {
             2: ["SB", "BB"],
             3: ["BU", "SB", "BB"],
@@ -19,7 +20,7 @@ class Table:
             6: ["MP", "HJ", "CO", "BU", "SB", "BB"],
             7: ["UTG", "MP", "HJ", "CO", "BU", "SB", "BB"]
         }
-        return position_options.get(self.num_players, [])
+        return position_options.get(num_players, [])
 
-    def get_poker_info(self):
+    def get_table_info(self):
         return json.dumps(self.poker, indent=4)

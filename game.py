@@ -4,8 +4,8 @@ from player import Player
 from table import Table
 
 class PokerGame:
-    def __init__(self, user_name, num_players, user_position):
-        self.table = Table(num_players)
+    def __init__(self, user_name, num_players, user_position, blinds):
+        self.table = Table(num_players, blinds)
         self.user_name = Player(user_name)
         self.user_position = user_position.upper()
         self.rivals = [Player("Rival") for _ in range(num_players - 1)]
