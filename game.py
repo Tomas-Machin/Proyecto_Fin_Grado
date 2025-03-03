@@ -1,5 +1,6 @@
 from deck import Deck
 from player import Player
+
 import json
 
 poker = {
@@ -21,10 +22,9 @@ class PokerGame:
         self.user_name = Player(user_name)
         self.num_players = num_players
         self.user_position = user_position.upper()
-        self.rivals = [Player(f"Rival {i + 1}") for i in range(num_players - 1)]
+        self.rivals = [Player("Rival") for i in range(num_players - 1)]
         self.deck = Deck()
         self.validate_user_position()
-        self.positions = {}  # Diccionario para almacenar información de posiciones
         self.assign_info_into_positions()
 
     def validate_user_position(self):
@@ -36,16 +36,17 @@ class PokerGame:
             if self.user_position == position:
                 poker["POSICIONES_POKER"][self.user_position]["nombre"] = self.user_name.name
             else:
-                poker["POSICIONES_POKER"][position]["nombre"] = f"Rival {index + 1}"
+                poker["POSICIONES_POKER"][position]["nombre"] = "Rival"
 
     def start_game(self):
         self.deck.shuffle()
         self.deal_initial_cards()
-        self.play_rounds()
+        #self.play_rounds()
 
     def deal_initial_cards(self):
         for player in [self.user_name] + self.rivals:
             player.hand = [self.deck.draw_card() for _ in range(2)]
+            print(player.hand)
 
     def game_information(self):
         posiciones_poker_json = json.dumps(poker, indent=4)
@@ -56,6 +57,6 @@ class PokerGame:
         print("\nPosiciones y fichas de los jugadores:")
         print(posiciones_poker_json)
 
-    def play_rounds(self):
+    """def play_rounds(self):
         # Aquí irán las rondas de apuestas y lógica adicional
-        pass
+        pass"""
