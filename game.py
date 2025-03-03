@@ -4,10 +4,11 @@ from player import Player
 from table import Table
 
 class PokerGame:
-    def __init__(self, user_name, num_players, user_position, blinds):
+    def __init__(self, user_name, num_players, user_position, blinds, user_hand):
         self.table = Table(num_players, blinds)
         self.user_name = Player(user_name)
-        self.user_position = user_position.upper()
+        self.user_hand = Player(user_hand)
+        self.user_position = user_position
         self.rivals = [Player("Rival") for _ in range(num_players - 1)]
         self.deck = Deck()
         self.validate_user_position()
@@ -29,7 +30,10 @@ class PokerGame:
 
     def deal_initial_cards(self):
         for position in self.table.positions:
-            self.table.poker["Positions"][position]["hand"] = [self.deck.draw_card() for _ in range(2)]
+            #if self.user_position == position:
+            #    self.table.poker["Positions"][self.user_position]["hand"] = self.user_hand
+            #else:
+                self.table.poker["Positions"][position]["hand"] = [self.deck.draw_card() for _ in range(2)]
 
     def game_information(self):
         print("\nCartas del jugador usuario:")
