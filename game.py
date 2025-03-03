@@ -12,12 +12,7 @@ class PokerGame:
         self.validate_user_position()
         self.assign_info_into_positions()
 
-    def print_rival_names(self):
-        for rival in self.rivals:
-            print(rival.name)  # Todos los rivales tendrán el nombre "Rival"
-
     def validate_user_position(self):
-        print(self.user_position)
         if self.user_position not in self.table.positions:
             exit("Posición inválida.")
 
