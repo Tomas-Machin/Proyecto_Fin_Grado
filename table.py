@@ -4,7 +4,11 @@ class Table:
     def __init__(self, num_players):
         self.num_players = num_players
         self.positions = self.assign_positions()
-        self.poker = {"POSICIONES_POKER": {position: {} for position in self.positions}}
+        self.poker = {
+            "POSICIONES_POKER": {
+                position: {"nombre": "Rival"} for position in self.positions
+            }
+        }
 
     def assign_positions(self):
         position_options = {

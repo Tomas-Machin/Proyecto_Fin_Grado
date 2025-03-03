@@ -20,8 +20,6 @@ class PokerGame:
         for position in self.table.positions:
             if self.user_position == position:
                 self.table.poker["POSICIONES_POKER"][self.user_position]["nombre"] = self.user_name.name
-            else:
-                self.table.poker["POSICIONES_POKER"][position]["nombre"] = "Rival"
 
     def start_game(self):
         self.deck.shuffle()
