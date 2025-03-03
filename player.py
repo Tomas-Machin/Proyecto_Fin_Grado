@@ -1,7 +1,7 @@
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, hand):
         self.name = name
-        self.hand = []
+        self.hand = hand
         self.chips = 1000  # Cantidad inicial de fichas
         self.position = None
 
