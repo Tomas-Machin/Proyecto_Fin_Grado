@@ -12,7 +12,8 @@ class Table:
             3: ["BU", "SB", "BB"],
             4: ["CO", "BU", "SB", "BB"],
             5: ["HJ", "CO", "BU", "SB", "BB"],
-            6: ["MP", "HJ", "CO", "BU", "SB", "BB"]
+            6: ["MP", "HJ", "CO", "BU", "SB", "BB"],
+            7: ["UTG", "MP", "HJ", "CO", "BU", "SB", "BB"]
         }
         return position_options.get(self.num_players, [])
 
