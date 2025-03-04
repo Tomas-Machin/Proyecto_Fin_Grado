@@ -1,0 +1,11 @@
+Por hacer:
+
+- Asignar la posicion al jugador en Player
+- Asignar las fichas al jugador en Player
+
+
+Ideas:
+
+- crear archivo ronda.py que tenga la informacion de todas las rondas por separado
+    - hay 5 objetos JSON con la informacion de cada ronda para que lo pueda procesar la Red Bayesiana y hacer un buen
+    registro de la informacion

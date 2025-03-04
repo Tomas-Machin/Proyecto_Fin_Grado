@@ -34,7 +34,7 @@ class PokerGame:
                 self.table.poker["Positions"][self.user_position]["hand"] = self.user.hand
             else:
                 self.table.poker["Positions"][position]["Chips"] = self.players_pockets[index]
-                self.table.poker["Positions"][position]["hand"] = [self.deck.draw_card() for _ in range(2)]
+                #self.table.poker["Positions"][position]["hand"] = [self.deck.draw_card() for _ in range(2)]
 
     def game_information(self):
         print("\nCartas del jugador usuario:")
