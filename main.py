@@ -1,4 +1,5 @@
 from game import PokerGame
+from round import Round
 
 Poker_positions = ["UTG", "MP", "HJ", "CO", "BU", "SB", "BB"]
 
@@ -7,11 +8,11 @@ def info_registration():
 
     try:
         num_players = int(input("Introduce el número de jugadores (2-7): "))
+        user_position = input("Introduce tu posición en la mesa (UTG, MP, HJ, CO, BU, SB, BB): ").upper()
+        blinds = float(input("Introduce las ciegas de la mesa (Mín. 0.02): "))
     except:
-        exit('\nEl dato introducido es inválido.\n')
+        exit('\nLos datos introducidos son inválidos.\n')
 
-    user_position = input("Introduce tu posición en la mesa (UTG, MP, HJ, CO, BU, SB, BB): ").upper()
-    blinds = input("Introduce las ciegas de la mesa (Mín. 0.02): ")
     user_hand = input("Introduce tu mano con el formato (7H 9C) siendo los palos H, S, C, D (Hearts, Spades, Cloves, Diamonds): ").split()
 
     players_pockets = []
@@ -21,11 +22,21 @@ def info_registration():
 
     return user_name, num_players, user_position, blinds, user_hand, players_pockets
 
+def info_per_round():
+    pot_in_bets = []
+    for i in range(0, num_players):
+        bet = int(input(f"Introduce la apuesta del jugador en la posicion: {Poker_positions[i]}: "))
+        pot_in_bets.append(bet)
+
+    return pot_in_bets
 
 if __name__ == "__main__":
+    # inicio
     nombre_usuario, num_players, user_position, blinds, user_hand, players_pockets = info_registration()
-    game = PokerGame(nombre_usuario, num_players, user_position, blinds, user_hand, players_pockets)
+    pot_in_bets = info_per_round()
+    game = PokerGame(nombre_usuario, num_players, user_position, blinds, user_hand, players_pockets, pot_in_bets)
     game.start_game()
     game.game_information()
+
 
     # cadenas de markov - teoria de juegos
