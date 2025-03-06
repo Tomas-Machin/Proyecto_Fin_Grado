@@ -1,8 +1,8 @@
 class Round:
-    def __init__(self, pot, community_cards):
-        self.pot = sum(pot)
+    def __init__(self, pot, community_cards, blinds):
+        self.pot = sum(pot) + blinds + blinds / 2
         self.players_left = 7
-        self.community_cards = []
+        self.community_cards = community_cards
 
         self.ronda = {
             "Round": 1,

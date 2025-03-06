@@ -20,20 +20,18 @@ def info_registration():
         money = input(f"Introduce las ciegas del jugador en la posicion: {Poker_positions[i]}: ")
         players_pockets.append(money)
 
-    return user_name, num_players, user_position, blinds, user_hand, players_pockets
-
-def info_per_round():
     pot_in_bets = []
     for i in range(0, num_players):
-        bet = int(input(f"Introduce la apuesta del jugador en la posicion: {Poker_positions[i]}: "))
-        pot_in_bets.append(bet)
+        bet = float(input(f"Introduce la apuesta del jugador en la posicion: {Poker_positions[i]}: "))
+        if bet == 0:
+            players_left = num_players - 1  # reducir el numero de jugadores
+            pot_in_bets.append(bet)
 
-    return pot_in_bets
+    return user_name, num_players, user_position, blinds, user_hand, players_pockets, pot_in_bets
 
 if __name__ == "__main__":
     # inicio
-    nombre_usuario, num_players, user_position, blinds, user_hand, players_pockets = info_registration()
-    pot_in_bets = info_per_round()
+    nombre_usuario, num_players, user_position, blinds, user_hand, players_pockets, pot_in_bets = info_registration()
     game = PokerGame(nombre_usuario, num_players, user_position, blinds, user_hand, players_pockets, pot_in_bets)
     game.start_game()
     game.game_information()
