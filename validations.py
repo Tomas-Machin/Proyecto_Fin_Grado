@@ -18,7 +18,7 @@ class Validations:
             exit("\nLa posición introducida es inválida o no esta en una mesa de ese tamaño.\n")
 
     def validate_blinds(self, blinds):
-        if float(blinds) < 0.02: # falla y ns porque - if isinstance(blinds, str) or float(blinds) < 0.02:
+        if blinds < 0.02: # falla y ns porque - if isinstance(blinds, str) or float(blinds) < 0.02:
             exit("\nLas ciegas introducidas no son válidas.\n")
 
     def validate_user_hand(self, hand):
