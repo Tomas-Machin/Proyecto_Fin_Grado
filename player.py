@@ -11,5 +11,3 @@ class Player:
         self.chips -= amount
         return amount
 
-    def receive_card(self, card):
-        self.hand.append(card)
