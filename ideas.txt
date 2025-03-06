@@ -1,7 +1,9 @@
 Por hacer:
 
-- Asignar la posicion al jugador en Player
 - Asignar las fichas al jugador en Player
+- Restar jugadores si foldean
+- Asignar apuestas por defecto a las ciegas y el chance de check a la BB
+
 
 
 Ideas:
