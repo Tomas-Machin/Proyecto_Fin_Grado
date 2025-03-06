@@ -1,6 +1,14 @@
 from deck import Deck
 class Validations:
     deck = Deck()
+    def __init__(self, num_players, user_position, positions, blinds, hand, chips):
+        self.num_players = num_players
+        self.user_position = user_position
+        self.positions = positions
+        self.blinds = blinds
+        self.hand = hand
+        self.chips = chips
+
     def validate_number_of_players(self, num_players):
         if num_players < 2 or num_players > 7:
             exit("\nLa cantidad de jugadores no es correcta.\n")
@@ -21,3 +29,10 @@ class Validations:
         for player_chips in chips:
             if int(player_chips) <= 0:
                 exit("\nLas fichas de algun jugador no son válidas.\n")
+
+    def confirm_data(self):
+        self.validate_number_of_players(self.num_players)
+        self.validate_user_position(self.user_position, self.positions)
+        self.validate_blinds(self.blinds)
+        self.validate_user_hand(self.hand)
+        self.validate_chips(self.chips)

@@ -1,6 +1,7 @@
 from deck import Deck
 from player import Player
 from table import Table
+from round import Round
 from validations import Validations
 
 class PokerGame:
@@ -11,19 +12,14 @@ class PokerGame:
         self.user = Player(user_name, user_hand)
         self.players_pockets = players_pockets
         self.deck = Deck()
-        self.validations = Validations()
+        self.round = Round()
+        self.validations = Validations(num_players, user_position, self.table.positions, blinds, user_hand, players_pockets)
         self.assign_user_into_positions()
 
     def assign_user_into_positions(self):
         for position in self.table.positions:
             if self.user_position == position:
                 self.table.poker["Positions"][self.user_position]["name"] = self.user.name
-
-    def start_game(self):
-        self.deck.shuffle()
-        self.deal_cards_and_assign_money()
-        self.confirm_data()
-        # self.play_rounds()
 
     def deal_cards_and_assign_money(self):
         for index, position in enumerate(self.table.positions):
@@ -34,12 +30,11 @@ class PokerGame:
                 self.table.poker["Positions"][position]["Chips"] = self.players_pockets[index]
                 #self.table.poker["Positions"][position]["hand"] = [self.deck.draw_card() for _ in range(2)]
 
-    def confirm_data(self):
-        self.validations.validate_number_of_players(len(self.rivals))
-        self.validations.validate_user_position(self.user_position, self.table.positions)
-        self.validations.validate_blinds(self.table.poker['Blinds'])
-        self.validations.validate_user_hand(self.user.hand)
-        self.validations.validate_chips(self.players_pockets)
+    def start_game(self):
+        self.deck.shuffle()
+        self.deal_cards_and_assign_money()
+        self.validations.confirm_data()
+        # self.play_rounds()
 
     def game_information(self):
         print("\nCartas del jugador usuario:")
