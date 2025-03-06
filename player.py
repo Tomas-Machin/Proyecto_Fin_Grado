@@ -3,7 +3,6 @@ class Player:
         self.name = name
         self.hand = hand
         self.chips = 1000  # Cantidad inicial de fichas
-        self.position = None
 
     def bet(self, amount):
         if amount > self.chips:
