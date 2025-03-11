@@ -4,6 +4,7 @@ Por hacer:
 - Restar jugadores si foldean
 - Asignar apuestas por defecto a las ciegas y el chance de check a la BB
 
+- considerar q cigas son grandes y cuales pequeñas (y medias)
 
 
 Ideas:
