@@ -3,6 +3,10 @@ from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 import numpy as np
 
+from table import Table
+from game import PokerGame
+from player import Player
+
 # Definir la estructura del modelo
 modelo = BayesianNetwork([
     ('CartasUsuario', 'DecisionUsuario'),
@@ -41,13 +45,52 @@ modelo.add_cpds(
 # Comprobar si la red es válida
 assert modelo.check_model()
 
+# trato de datos introducidos por el usuario
+table_info = Table()
+game_info = PokerGame()
+player_info = Player()
+
+# Posición del usuario
+posiciones = {
+    "UTG": 0,  # Temprana
+    "MP": 0,   # Temprana
+    "HJ": 1,   # Media
+    "CO": 1,   # Media
+    "BU": 2,   # Tardía
+    "SB": 2,   # Tardía
+    "BB": 2    # Tardía
+}
+
+posicion = posiciones[game_info.user_position]
+
+# Dependiendo del valor de la ciega, determinamos si son altas o bajas
+ciegas_tipo = 0 if table_info.poker["Blinds"] < 100 else 1
+
+# Mapeamos la mano a categorías de "Débil", "Media" o "Fuerte"
+manos_fuertes = {"A", "K", "Q", "J", "10"}  # evaluar la mano como conjunto de max 4 y menos 0 y de ahi evaluar alto-medio-bajo
+mano_usuario = 0  # Mano débil
+for carta in manos_fuertes:
+    if carta in player_info.hand:
+        mano_usuario = 2  # Mano fuerte
+        break
+if mano_usuario == 0:  # Si no es fuerte, puede ser media o débil
+    if "9" in player_info.hand or "8" in player_info.hand:
+        mano_usuario = 1  # Mano media
+    else:
+        mano_usuario = 0  # Mano débil
+
 # Realizar inferencia en la red
 inferencia = VariableElimination(modelo)
 
 # Ejemplo: Inferir la mejor acción si el usuario tiene cartas fuertes, hay 4 jugadores activos, las ciegas son altas y está en posición tardía
-resultado = inferencia.query(
+"""resultado = inferencia.query(
     variables=['DecisionUsuario'], 
     evidence={'CartasUsuario': 2, 'JugadoresActivos': 1, 'Ciegas': 1, 'PosicionUsuario': 2}
+)"""
+
+resultado = inferencia.query(
+    variables=['DecisionUsuario'], 
+    evidence={'CartasUsuario': mano_usuario, 'JugadoresActivos': table_info.poker["Players"], 'Ciegas': table_info.poker["Blinds"], 'PosicionUsuario': game_info.user_position}
 )
 
 # Reemplazar valores numéricos por etiquetas

@@ -3,9 +3,10 @@ Por hacer:
 - Asignar las fichas al jugador en Player
 - Restar jugadores si foldean
 - Asignar apuestas por defecto a las ciegas y el chance de check a la BB
+- añadir las apuestas al pot
 
 - considerar q cigas son grandes y cuales pequeñas (y medias)
-
+- poner datos del usuario en la red bayesiana y cambiar trato de datos
 
 Ideas:
 
