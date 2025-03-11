@@ -13,7 +13,7 @@ def info_registration():
     except:
         exit('\nLos datos introducidos son inválidos.\n')
 
-    user_hand = input("Introduce tu mano con el formato (7H 9C) siendo los palos H, S, C, D (Hearts, Spades, Cloves, Diamonds): ").split()
+    user_hand = input("Introduce tu mano con el formato (7H 9C) siendo los palos H, S, C, D (Hearts, Spades, Cloves, Diamonds): ").upper().split()
 
     players_pockets = []
     for i in range(0, num_players):
