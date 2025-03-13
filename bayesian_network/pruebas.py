@@ -14,7 +14,6 @@ modelo = BayesianNetwork([
     ('Ciegas', 'DecisionUsuario'),
     ('FichasUsuario', 'DecisionUsuario'),
     ('PosicionUsuario', 'DecisionUsuario')
-    #('DecisionRival', 'DecisionUsuario')
 ])
 
 # Definir las distribuciones de probabilidad condicional (CPDs)
@@ -63,21 +62,23 @@ posiciones = {
 
 posicion = posiciones[game_info.user_position]
 
-# Dependiendo del valor de la ciega, determinamos si son altas o bajas
-ciegas_tipo = 0 if table_info.poker["Blinds"] < 100 else 1
+# Dependiendo del valor de la ciega, determinamos si son altas o bajas -> si no puedes jugar 5 manos | 10 manos
+ciegas_tipo = 0 if player_info.chips / table_info.poker["Blinds"] < 5 else 1
 
 # Mapeamos la mano a categorías de "Débil", "Media" o "Fuerte"
-manos_fuertes = {"A", "K", "Q", "J", "10"}  # evaluar la mano como conjunto de max 4 y menos 0 y de ahi evaluar alto-medio-bajo
-mano_usuario = 0  # Mano débil
+# evaluar la mano como conjunto de max 4 y menos 0 y de ahi evaluar alto-medio-bajo
+manos_fuertes = {"AS", "KS", "QS", "JS", "10S", "AC", "KC", "QC", "JC", "10C", "AH", "KH", "QH", "JH", "10H", "AD", "KD", "QD", "JD", "10D"}
+cartas_intermedias = {"9S", "8S","9C", "8C","9H", "8H", "9D", "8D"}
+potencial_mano = 0  # Mano débil
 for carta in manos_fuertes:
     if carta in player_info.hand:
-        mano_usuario = 2  # Mano fuerte
-        break
-if mano_usuario == 0:  # Si no es fuerte, puede ser media o débil
-    if "9" in player_info.hand or "8" in player_info.hand:
-        mano_usuario = 1  # Mano media
+        potencial_mano = potencial_mano + 2  # Mano fuerte
+    elif "9" in player_info.hand or "8" in player_info.hand:
+        potencial_mano = potencial_mano + 1  # Mano media
     else:
-        mano_usuario = 0  # Mano débil
+        potencial_mano = potencial_mano + 0  # Mano debil
+
+print(potencial_mano)
 
 # Realizar inferencia en la red
 inferencia = VariableElimination(modelo)
@@ -90,7 +91,10 @@ inferencia = VariableElimination(modelo)
 
 resultado = inferencia.query(
     variables=['DecisionUsuario'], 
-    evidence={'CartasUsuario': mano_usuario, 'JugadoresActivos': table_info.poker["Players"], 'Ciegas': table_info.poker["Blinds"], 'PosicionUsuario': game_info.user_position}
+    evidence={'CartasUsuario': potencial_mano, 
+              'JugadoresActivos': table_info.poker["Players"], 
+              'Ciegas': table_info.poker["Blinds"], 
+              'PosicionUsuario': game_info.user_position}
 )
 
 # Reemplazar valores numéricos por etiquetas

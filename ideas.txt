@@ -1,11 +1,11 @@
 Por hacer:
 
-- Asignar las fichas al jugador en Player
+- Asignar las fichas al jugador en Player -> HECHO
 - Restar jugadores si foldean
 - Asignar apuestas por defecto a las ciegas y el chance de check a la BB
 - añadir las apuestas al pot
 
-- considerar q cigas son grandes y cuales pequeñas (y medias)
+- considerar q cigas son grandes y cuales pequeñas (y medias) -> HECHO
 - poner datos del usuario en la red bayesiana y cambiar trato de datos
 
 Ideas:
