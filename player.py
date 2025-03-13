@@ -2,7 +2,7 @@ class Player:
     def __init__(self, name, hand):
         self.name = name
         self.hand = hand
-        self.chips = 1000  # Cantidad inicial de fichas
+        self.chips = 0  # Cantidad inicial de fichas
 
     def bet(self, amount):
         if amount > self.chips:

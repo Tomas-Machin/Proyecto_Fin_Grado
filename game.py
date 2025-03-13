@@ -25,6 +25,7 @@ class PokerGame:
         for index, position in enumerate(self.table.positions):
             if self.user_position == position:
                 self.table.poker["Positions"][self.user_position]["Chips"] = self.players_pockets[index]
+                self.user.chips = self.players_pockets[index]
                 self.table.poker["Positions"][self.user_position]["hand"] = self.user.hand
             else:
                 self.table.poker["Positions"][position]["Chips"] = self.players_pockets[index]
