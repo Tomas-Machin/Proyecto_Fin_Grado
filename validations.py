@@ -27,7 +27,7 @@ class Validations:
 
     def validate_chips(self, chips):
         for player_chips in chips:
-            if int(player_chips) <= 0:
+            if float(player_chips) <= 0:
                 exit("\nLas fichas de algun jugador no son válidas.\n")
 
     def confirm_data(self):
