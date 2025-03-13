@@ -6,7 +6,12 @@ Por hacer:
 - añadir las apuestas al pot
 
 - considerar q cigas son grandes y cuales pequeñas (y medias) -> HECHO
-- poner datos del usuario en la red bayesiana y cambiar trato de datos
+- poner datos del usuario en la red bayesiana y cambiar trato de datos -> HECHO
+- Añadir varianza del peso de las posiciones segun los jugadores -> HECHO
+- cambiar contenido del archivo game a prueba
+- ajustar la red bayesiana 
+    - tener en cuenta el palo de las cartas
+    - las jugadas hechas (raise-call-fold del resto de los jugadores) -> hacerlo dinamico
 
 Ideas:
 

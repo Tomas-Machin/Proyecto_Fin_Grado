@@ -3,9 +3,7 @@ from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 import numpy as np
 
-from table import Table
 from game import PokerGame
-from player import Player
 
 # Definir la estructura del modelo
 modelo = BayesianNetwork([
@@ -45,9 +43,7 @@ modelo.add_cpds(
 assert modelo.check_model()
 
 # trato de datos introducidos por el usuario
-table_info = Table()
 game_info = PokerGame()
-player_info = Player()
 
 # Posición del usuario
 posiciones = {
@@ -63,7 +59,7 @@ posiciones = {
 posicion = posiciones[game_info.user_position]
 
 # Dependiendo del valor de la ciega, determinamos si son altas o bajas -> si no puedes jugar 5 manos | 10 manos
-ciegas_tipo = 0 if player_info.chips / table_info.poker["Blinds"] < 5 else 1
+ciegas_tipo = 0 if game_info.user.chips / game_info.table.poker["Blinds"] < 5 else 1
 
 # Mapeamos la mano a categorías de "Débil", "Media" o "Fuerte"
 # evaluar la mano como conjunto de max 4 y menos 0 y de ahi evaluar alto-medio-bajo
@@ -71,9 +67,9 @@ manos_fuertes = {"AS", "KS", "QS", "JS", "10S", "AC", "KC", "QC", "JC", "10C", "
 cartas_intermedias = {"9S", "8S","9C", "8C","9H", "8H", "9D", "8D"}
 potencial_mano = 0  # Mano débil
 for carta in manos_fuertes:
-    if carta in player_info.hand:
+    if carta in game_info.user.hand:
         potencial_mano = potencial_mano + 2  # Mano fuerte
-    elif "9" in player_info.hand or "8" in player_info.hand:
+    elif "9" in game_info.user.hand or "8" in game_info.user.hand:
         potencial_mano = potencial_mano + 1  # Mano media
     else:
         potencial_mano = potencial_mano + 0  # Mano debil
@@ -92,13 +88,15 @@ inferencia = VariableElimination(modelo)
 resultado = inferencia.query(
     variables=['DecisionUsuario'], 
     evidence={'CartasUsuario': potencial_mano, 
-              'JugadoresActivos': table_info.poker["Players"], 
-              'Ciegas': table_info.poker["Blinds"], 
+              'JugadoresActivos': game_info.table.poker["Players"], 
+              #'Ciegas': table_info.poker["Blinds"], 
+              'Ciegas': ciegas_tipo, 
               'PosicionUsuario': game_info.user_position}
 )
 
 # Reemplazar valores numéricos por etiquetas
 acciones = ['Fold', 'Check/Call', 'Raise']
+print(f"Dadas las siguientes condiciones: {game_info.table.get_table_info()}, los caminos son los siguientes:")
 print("+--------------------+------------------------+")
 print("| DecisionUsuario    |   phi(DecisionUsuario) |")
 print("+====================+========================+")
